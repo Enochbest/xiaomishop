@@ -1,16 +1,23 @@
 {
-  "id": "",
-  "name": "",
+  "id": "4148893",
+  "name": "小米flutter",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
     {
-      "icon_id": "30600465",
-      "name": "小米-copy",
-      "font_class": "XiaoMi",
-      "unicode": "e501",
-      "unicode_decimal": 58625
+      "icon_id": "22724211",
+      "name": "icon-小米归属",
+      "font_class": "icon-xiaomiguishu",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "34009634",
+      "name": "灰-对钩1",
+      "font_class": "hui-duigou1",
+      "unicode": "e91d",
+      "unicode_decimal": 59677
     }
   ]
 }
