@@ -22,7 +22,10 @@ dev_dependencies:
 flutter: 
   uses-material-design: true
   fonts:
-  - family: ityingIcon
-    fonts:
-      - asset: assets/fonts/iconfont.ttf
+    - family: ityingIcon
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
+  assets:
+    - assets/images/2.0x/xiaomiBanner2.png
+    - assets/images/3.0x/xiaomiBanner2.png
 
