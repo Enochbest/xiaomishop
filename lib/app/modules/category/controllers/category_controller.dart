@@ -1,12 +1,21 @@
 import 'package:get/get.dart';
-
+import '../../../models/bestcate_model.dart';
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import '../../../tool/http/api_list.dart';
 class CategoryController extends GetxController {
   //TODO: Implement CategoryController
 
-  final count = 0.obs;
+  RxInt selectIndex = 0.obs;
+  RxList<BestCateModelItem> firstCateList = <BestCateModelItem>[].obs;
+  RxList<BestCateModelItem> secondCateList = <BestCateModelItem>[].obs;
+
   @override
   void onInit() {
     super.onInit();
+    getFirstCateList();
+
+
   }
 
   @override
@@ -19,5 +28,36 @@ class CategoryController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void changeIndex(index) {
+    selectIndex.value = index;
+    print(selectIndex.value);
+    update();
+  }
+
+  getFirstCateList() async{
+    var response =   await Api.getFirstCateList();
+    var cateList = BestCateModel.fromJson(response.data);
+    firstCateList.value = cateList.result!;
+
+    print(json.encode(cateList.result));
+    getSecondCateList(firstCateList[0].sId);
+    update();
+  }
+  getSecondCateList(pid) async{
+    var response =  await Api.getSecondCateList({"pid":pid});
+    var secondList = BestCateModel.fromJson(response.data);
+    secondCateList.value = secondList.result!;
+    print(json.encode(secondList.result));
+    print(json.encode(response.statusCode));
+    update();
+  }
+
+  test() async{
+    var response =  await Api.getFirstCateList();
+    var cateList = BestCateModel.fromJson(response.data);
+
+    print(json.encode(cateList.result));
+    print('----------------------------');
+
+  }
 }

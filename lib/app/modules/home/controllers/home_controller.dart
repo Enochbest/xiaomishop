@@ -15,6 +15,7 @@ class HomeController extends GetxController {
   RxList<ResultItemModel> bestSellingSwiperList = <ResultItemModel>[].obs;
   RxList<BestCateModelItem> bestCateList = <BestCateModelItem>[].obs;
   RxList<PlistModelItem> hotSellingList = <PlistModelItem>[].obs;
+  RxList<PlistModelItem> bestGoodsList = <PlistModelItem>[].obs;
 
   @override
   void onInit() {
@@ -24,6 +25,7 @@ class HomeController extends GetxController {
     getBestCateList();
     getBestSellingSwiperList();
     getHotSellingList();
+    getBestGoodsList();
   }
 
   @override
@@ -79,7 +81,12 @@ class HomeController extends GetxController {
     var response =  await Dio().get("http://xiaomi.itying.com/api/plist?is_hot=1&pageSize=3");
     var hotSelling = PlistModel.fromJson(response.data);
     hotSellingList.value = hotSelling.result!;
-    print(json.encode(hotSelling.result));
     update();
+  }
+  //获取好物商品列表
+  getBestGoodsList()async{
+    var response =  await Dio().get("http://xiaomi.itying.com/api/plist?is_best=1");
+    var bestList = PlistModel.fromJson(response.data);
+    bestGoodsList.value = bestList.result!;
   }
 }

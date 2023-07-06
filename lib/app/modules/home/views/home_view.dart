@@ -1,12 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/home_controller.dart';
 import '../../../tool/keepalivewrapper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../tool/itying_fonts.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   //导航栏
@@ -211,7 +212,7 @@ class HomeView extends GetView<HomeController> {
             ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(30.w, 0, 30.w, 30.h),
+          padding: EdgeInsets.fromLTRB(30.w, 0, 30.w, 0),
           child: Row(
             children: [
               Expanded(
@@ -255,7 +256,6 @@ class HomeView extends GetView<HomeController> {
                       Column(
                         children: controller.hotSellingList.asMap().entries.map((entire){
                           var value = entire.value;
-
                           return Expanded(
                             flex: 1,
                             child: Container(
@@ -299,6 +299,87 @@ class HomeView extends GetView<HomeController> {
       ],
     );
   }
+  //好物推荐布局
+  Widget _bestGoods(){
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(30.w, 40.w, 30.w, 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("好物推荐",style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                  fontSize: ScreenUtil().setSp(46)
+              ),),
+              Text("更多好物推荐 >",style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: ScreenUtil().setSp(38)
+              ),)
+            ],
+          ),
+        ),
+        Obx(() =>
+            Container(
+              padding: EdgeInsets.all(30.w),
+              color: Color.fromRGBO(246, 246, 246, 1),
+              child: MasonryGridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 26.w,
+                crossAxisSpacing: 26.w,
+                itemCount: controller.bestGoodsList.length,
+                //让元素宽度自适应
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context,index){
+                  return Container(
+                    padding: EdgeInsets.all(10.w),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4)
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: Image.network("https://xiaomi.itying.com/${controller.bestGoodsList[index].sPic}",fit: BoxFit.cover,),
+                        ),
+                        Container(
+                          width:double.infinity,
+                          padding:  EdgeInsets.all(10.w),
+                          child: Text("${controller.bestGoodsList[index].title}",textAlign: TextAlign.start,style: TextStyle(
+                              fontSize: ScreenUtil().setSp(36),
+                              fontWeight: FontWeight.bold
+                          ),),
+                        ),
+                        Container(
+                          width:double.infinity,
+                          padding:  EdgeInsets.all(10.w),
+                          child: Text("${controller.bestGoodsList[index].subTitle}",textAlign: TextAlign.start,style: TextStyle(
+                              fontSize: ScreenUtil().setSp(32)
+                          )),
+                        ),
+                        Container(
+                          width:double.infinity,
+                          padding:  EdgeInsets.all(10.w),
+                          child: Text("¥${controller.bestGoodsList[index].price}元",textAlign: TextAlign.start,style: TextStyle(
+                              fontSize: ScreenUtil().setSp(32),
+                              fontWeight: FontWeight.bold
+
+                          )),
+                        ),
+                      ],
+                    ),
+
+                  );
+                },
+              ),
+            )
+        )
+      ],
+    );
+  }
 
   //主页
   Widget _homePage(){
@@ -316,6 +397,7 @@ class HomeView extends GetView<HomeController> {
           _cateSwiper(),
           _banner2(),
           _bestSelling(),
+          _bestGoods(),
           SizedBox(
             height: 100,
           )
