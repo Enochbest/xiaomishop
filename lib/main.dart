@@ -17,6 +17,8 @@ void main() {
             return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: "Application",
+              theme: ThemeData(primarySwatch: Colors.grey),
+              defaultTransition: Transition.rightToLeft,
               initialRoute: AppPages.INITIAL,
               getPages: AppPages.routes,
             );
