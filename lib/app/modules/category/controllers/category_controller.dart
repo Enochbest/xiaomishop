@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import '../../../models/bestcate_model.dart';
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import '../../../tool/http/api_list.dart';
 class CategoryController extends GetxController {
   //TODO: Implement CategoryController
@@ -14,8 +13,6 @@ class CategoryController extends GetxController {
   void onInit() {
     super.onInit();
     getFirstCateList();
-
-
   }
 
   @override

@@ -99,17 +99,22 @@ class CategoryView extends GetView<CategoryController> {
                       childAspectRatio: 240/346
                   ),
                   itemBuilder: (context,index){
-                    return Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          child: Image.network("https://xiaomi.itying.com/${controller.secondCateList[index].pic}",fit: BoxFit.fitHeight,),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20.w, 0, 0),
-                          child: Text("${controller.secondCateList[index].title}",style: TextStyle(fontSize: ScreenUtil().setSp(32)),),
-                        )
-                      ],
+                    return InkWell(
+                      onTap: (){
+                        Get.toNamed("/product",arguments: {"cid":controller.secondCateList[index].sId});
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            child: Image.network("https://xiaomi.itying.com/${controller.secondCateList[index].pic}",fit: BoxFit.fitHeight,),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 20.w, 0, 0),
+                            child: Text("${controller.secondCateList[index].title}",style: TextStyle(fontSize: ScreenUtil().setSp(32)),),
+                          )
+                        ],
+                      ),
                     );
                   }),
             )),

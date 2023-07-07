@@ -15,25 +15,31 @@ class HttpClient{
       ),
     );
   }
-  Future<Response> get(String path, {Map<String, dynamic>? params}) async {
-    final response = await myDio.get(
-      path,
-      queryParameters: params,
-    );
-    print(path);
-    print(params);
-    print("********");
-    return response;
+  Future get(String path, {Map<String, dynamic>? params}) async {
+    try{
+      final response = await myDio.get(
+        path,
+        queryParameters: params,
+      );
+      print(path);
+      print(params);
+      print("********");
+      return response;
+    }catch(e){
+      return null;
+    }
+
   }
 
-  Future<Response> post(
-      String path, {
-        Map<String, dynamic>? data,
-      }) async {
-    final response = await myDio.post(
-      path,
-      data: data,
-    );
-    return response;
+  Future post(String path, {Map<String, dynamic>? data,}) async {
+    try{
+      final response = await myDio.post(
+        path,
+        data: data,
+      );
+      return response;
+    }catch(e){
+      return null;
+    }
   }
 }
