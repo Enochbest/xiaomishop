@@ -22,7 +22,7 @@ class ProductController extends GetxController {
    //二级导航选择判断
   RxInt selectHeaderId = 1.obs;
   //主要解决箭头无法更新的问题!
-  RxInt subHeaderSort = 0.obs;
+  RxInt subHeaderSort = 1.obs;
   @override
   void onInit() {
     super.onInit();

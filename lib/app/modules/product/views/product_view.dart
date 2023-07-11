@@ -168,7 +168,8 @@ class ProductView extends GetView<ProductController> {
   }
 
   Widget _showIcon(id){
-    if(id==2 || id==3 || controller.subHeaderSort.value==1 || controller.subHeaderSort.value==-1){
+    print("$id+++++++++++++++++++++++++++++++++++++++");
+    if(id==2 || id==3 && (controller.subHeaderSort.value==1 || controller.subHeaderSort.value==-1)){
       if(controller.subHeaderList[id-1]["sort"]==1){
         return const Icon(Icons.arrow_drop_down,color: Colors.black54,);
       }else{

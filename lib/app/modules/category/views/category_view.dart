@@ -36,7 +36,12 @@ class CategoryView extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _appBar(),
+        title: InkWell(
+          onTap: (){
+            Get.toNamed("/search");
+          },
+          child: _appBar(),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
