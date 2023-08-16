@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class SearchController extends GetxController {
   //TODO: Implement SearchController
 
-  final count = 0.obs;
+  String keyWords = "";
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +18,4 @@ class SearchController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

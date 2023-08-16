@@ -16,26 +16,32 @@ class ProductView extends GetView<ProductController> {
         color: const Color.fromRGBO(246, 246, 246, 1),
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children:  [
-              const Icon(Icons.search,color: Color.fromRGBO(189, 180, 171, 1),),
-              Text('手机',style: TextStyle(fontSize: ScreenUtil().setSp(36),color: const Color.fromRGBO(189, 180, 171, 1)))
-            ],
-          ),
-          // const Icon(Icons.adf_scanner,color: Color.fromRGBO(189, 180, 171, 1)),
-        ],
-      ),
+      child: InkWell(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:  [
+                const Icon(Icons.search,color: Color.fromRGBO(189, 180, 171, 1),),
+                Text(controller.keyWords!=null? "${controller.keyWords}" : "",style: TextStyle(fontSize: ScreenUtil().setSp(36),color: const Color.fromRGBO(189, 180, 171, 1)))
+              ],
+            ),
+            // const Icon(Icons.adf_scanner,color: Color.fromRGBO(189, 180, 171, 1)),
+          ],
+        ),
+        onTap: (){
+          Get.offAndToNamed("/search");
+        },
+      )
     );
   }
   Widget _productList(){
     return Obx(() =>
         controller.productList.isNotEmpty ?ListView.builder(
             controller: controller.scrollController,
+            key: UniqueKey(),
             padding: EdgeInsets.fromLTRB(26.h, 200.w, 26.h, 26.h),
             itemCount: controller.productList.length,
             itemBuilder: (context,index){
@@ -156,7 +162,7 @@ class ProductView extends GetView<ProductController> {
   }
 
   Widget _processIndicator(){
-    if(controller.hasData.value){
+    if(controller.hasData.value && controller.page.value>2){
       return const Center(
         child: CircularProgressIndicator(),
       );
@@ -168,7 +174,6 @@ class ProductView extends GetView<ProductController> {
   }
 
   Widget _showIcon(id){
-    print("$id+++++++++++++++++++++++++++++++++++++++");
     if(id==2 || id==3 && (controller.subHeaderSort.value==1 || controller.subHeaderSort.value==-1)){
       if(controller.subHeaderList[id-1]["sort"]==1){
         return const Icon(Icons.arrow_drop_down,color: Colors.black54,);
@@ -269,9 +274,9 @@ class ProductView extends GetView<ProductController> {
                               padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                                children: const [
                                   Text("光阿萨德照"),
-                                  const Icon(Icons.arrow_drop_down)
+                                  Icon(Icons.arrow_drop_down)
                                 ],
                               ),
                             ),

@@ -12,6 +12,8 @@ class ProductController extends GetxController {
   bool flag = true;
   RxBool hasData = true.obs;
   String sort = "";
+  String? cid = "";
+  String? keyWords = "";
   //二级导航数据
    List subHeaderList = [
      {"id":1, "title":"综合", "fileds":"all", "sort":-1,},
@@ -26,6 +28,8 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    cid = Get.arguments["cid"];
+    keyWords = Get.arguments["keyWords"];
     getProductList();
     initScrollController();
     print('********************');
@@ -42,22 +46,29 @@ class ProductController extends GetxController {
   }
   void getProductList() async{
     print('9999999999999');
-    print("$page**--------------");
+    print("${Get.arguments["keyWords"]}**--------------");
+    print("${hasData.value}**--------------");
+
     if(flag==true && hasData.value==true){
       flag=false;
-      var response = await Api.getProductListByCate(
-          {"cid":Get.arguments["cid"],"page":page.value,"pageSize":pageSize.value,"sort":sort}
-      );
+      Map<String, dynamic> params = {"cid":cid,"page":page.value,"pageSize":pageSize.value,"sort":sort,"search":keyWords};
+
+      print("$params//////////////params////////////////");
+      var response = await Api.getProductListByCate(params);
       if(response!=null){
         var pist = PlistModel.fromJson(response.data);
         productList.addAll(pist.result!);
+        if(pist.result!.length<pageSize.value && page.value>1){
+          hasData.value=false;
+        }
         page.value++;
         flag=true;
         update();
-        if(pist.result!.length<pageSize.value){
-          hasData.value=false;
-        }
+        print("${page.value}---------打印页码---------");
+
       }
+    }else{
+      print("没进来");
     }
 
   }
@@ -74,7 +85,7 @@ class ProductController extends GetxController {
 
   void changeSubHeaderId(id){
     selectHeaderId.value = id;
-
+    print("$id*****************id*****************");
     if(id==4){
      scaffoldGlobalKey.currentState!.openEndDrawer();
     }else{

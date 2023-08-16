@@ -8,7 +8,7 @@ class Api {
   }
   static getProductListByCate (params){
     print(params);
-    print('挨批中///////////////////');
+    print('--------------参数---------------');
     return HttpClient().get("/plist",params:params);
   }
 }

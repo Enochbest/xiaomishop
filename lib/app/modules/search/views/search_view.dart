@@ -29,6 +29,14 @@ class SearchView extends GetView<SearchController> {
             borderSide: BorderSide.none
           )
         ),
+        //监听输入框输入事件
+        onChanged: (value){
+          controller.keyWords = value;
+        },
+        //监听回车事件
+        onSubmitted: (value){
+          Get.offAndToNamed("/product",arguments: {"keyWords" : value});
+        },
       )
     );
   }
@@ -42,7 +50,7 @@ class SearchView extends GetView<SearchController> {
         elevation: 0,
         actions: [
           TextButton(onPressed: (){
-            print("收缩!");
+            Get.offAndToNamed("/product",arguments: {"keyWords" : controller.keyWords});
           }, child:  Text("搜索",style: TextStyle(
             fontSize: ScreenUtil().setSp(42),
             color: Colors.black87
@@ -73,7 +81,7 @@ class SearchView extends GetView<SearchController> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.w)
                   ),
-                  child: Text("手机"),
+                  child: const Text("手机"),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(32.w, 10.w, 32.w, 10.w),
@@ -81,7 +89,7 @@ class SearchView extends GetView<SearchController> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20.w)
                   ),
-                  child: Text("笔记本"),
+                  child: const Text("笔记本"),
                 ),
               ],
             ),
